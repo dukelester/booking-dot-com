@@ -3,6 +3,7 @@ import express from 'express';
 import {
   createHotel, deleteHotel, getAllHotels, getHotelById, updateHotelById,
 } from '../controllers/hotel.js';
+import { verifyIsAdmin } from '../utils/verifytoken.js';
 
 const router = express.Router();
 
@@ -13,12 +14,12 @@ router.get('/', getAllHotels);
 router.get('/:hotelId', getHotelById);
 
 // CREATE
-router.post('/', createHotel);
+router.post('/', verifyIsAdmin, createHotel);
 
 // UPDATE
-router.put('/:hotelId', updateHotelById);
+router.put('/:hotelId', verifyIsAdmin, updateHotelById);
 
 // DELETE
-router.delete('/:hotelId', deleteHotel);
+router.delete('/:hotelId', verifyIsAdmin, deleteHotel);
 
 export default router;

@@ -3,36 +3,36 @@ import express from 'express';
 import {
   createUser, deleteUser, getAllUsers, getUserById, updateUserById,
 } from '../controllers/user.js';
-import { verifyToken, verifyUser, verifyIsAdmin } from '../utils/verifytoken.js';
+import { verifyUser } from '../utils/verifytoken.js';
 
 const router = express.Router();
 
 // Check for authentication
-router.get('/checkauthentication', verifyToken, (req, res, next) => {
-  res.send('hello user , you are authenticated');
-});
+// router.get('/checkauthentication', verifyToken, (req, res, next) => {
+//   res.send('hello user , you are authenticated');
+// });
 
-router.get('/checkuser/:userId', verifyUser, (req, res, next) => {
-  res.send('hello user , you are logged in');
-});
+// router.get('/checkuser/:userId', verifyUser, (req, res, next) => {
+//   res.send('hello user , you are logged in');
+// });
 
-router.get('/admin/:userId', verifyIsAdmin, (req, res, next) => {
-  res.send('hello Admin , you are logged in and you have super control');
-});
+// router.get('/admin/:userId', verifyIsAdmin, (req, res, next) => {
+//   res.send('hello Admin , you are logged in and you have super control');
+// });
 
 // GET ALL
 router.get('/', getAllUsers);
 
 // GET User by ID
-router.get('/:userId', getUserById);
+router.get('/:userId', verifyUser, getUserById);
 
 // CREATE
-router.post('/', createUser);
+router.post('/', verifyUser, createUser);
 
 // UPDATE
-router.put('/:userId', updateUserById);
+router.put('/:userId', verifyUser, updateUserById);
 
 // DELETE
-router.delete('/:userId', deleteUser);
+router.delete('/:userId', verifyUser, deleteUser);
 
 export default router;
