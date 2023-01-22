@@ -30,10 +30,25 @@ mongoose.connection.on('connected', () => {
 });
 
 // middlewares
+app.use(express.json());
+
 app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/hotels', hotelsRoute);
 app.use('/api/rooms', roomsRoute);
+
+// error handling middleware
+
+app.use((err, req, res, next) => {
+  const errorSatatus = err.status || 500;
+  const errorMessage = err.message || 'Something went bad !';
+  return res.status(errorSatatus).json({
+    success: false,
+    status: errorSatatus,
+    message: errorMessage,
+    stack: errorSatatus.stack,
+  });
+});
 
 const port = process.env.PORT;
 app.listen(port, () => {
