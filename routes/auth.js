@@ -1,9 +1,9 @@
+/* eslint-disable import/extensions */
 import express from 'express';
+import { userRegistration } from '../controllers/auth.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('<h3> Welcome to the Auth endpoint</h3>');
-});
+router.post('/register', userRegistration);
 
 export default router;
