@@ -1,0 +1,3 @@
+# Hotel Booking
+
+A simple Node.js application backend for hotel booking would consist of a server that listens for incoming requests from a client (such as a web application or mobile app) and performs actions on a database of hotel information. The server would use Node.js to handle incoming requests and route them to the appropriate functions for handling. The application would allow users to search for available hotels, view details about specific hotels, and book reservations. The database would store information about hotels, such as their location, available rooms, and pricing. The backend would also handle the payment process and send confirmations to the user.
