@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/extensions */
 import Room from '../models/Room.js';
@@ -36,6 +37,12 @@ export const deleteRoom = async (req, res, next) => {
   const { roomId } = req.params;
   try {
     await Room.findByIdAndDelete(roomId);
+    try {
+      await Hotel.findByIdAndDelete(req.params.id, { $pull: { rooms: req.params.id } });
+    } catch (error) {
+      next(error);
+    }
+
     res.status(200).json({ message: ` Room with the Id ${roomId} has been deleted Successfully!` });
   } catch (error) {
     next(error);

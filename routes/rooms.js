@@ -1,9 +1,26 @@
+/* eslint-disable import/extensions */
 import express from 'express';
+import {
+  getAllRooms, createRoom, updateRoom, deleteRoom, findRoomById,
+} from '../controllers/room.js';
+
+import { verifyIsAdmin } from '../utils/verifytoken.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('<h3> Welcome to the Rooms endpoint</h3>');
-});
+// GET ALL
+router.get('/', getAllRooms);
+
+// GET Hotel by ID
+router.get('/:roomId', findRoomById);
+
+// CREATE
+router.post('/:hotelId', verifyIsAdmin, createRoom);
+
+// UPDATE
+router.put('/:roomId', verifyIsAdmin, updateRoom);
+
+// DELETE
+router.delete('/:roomId/:hotelId', verifyIsAdmin, deleteRoom);
 
 export default router;
