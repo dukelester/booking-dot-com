@@ -1,5 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/extensions */
+import jwt from 'jsonwebtoken';
+
 import User from '../models/User.js';
 import { hashPassword, isPasswordCorrect } from '../utils/hashpassword.js';
 import createError from '../utils/error.js';
@@ -26,7 +29,12 @@ export const userLogin = async (req, res, next) => {
     if (!foundUser) return next(createError(404, 'User not found!'));
     if (!isPasswordCorrect(password, foundUser.password)) return next(createError(400, 'Wrong password or username'));
     const { password: userpassword, isAdmin, ...otherDetails } = foundUser._doc;
-    res.status(200).json({ ...otherDetails });
+    const token = jwt.sign({
+      id: foundUser._id,
+      isAdmin: foundUser.isAdmin,
+    }, process.env.JWT_SECRETE_KEY);
+
+    res.cookie('access_token', token, { httpOnly: true }).status(200).json({ ...otherDetails });
   } catch (error) {
     next(error);
   }
