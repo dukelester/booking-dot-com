@@ -18,7 +18,7 @@ const FeaturedProperties = () => {
         />
         <span className="fpName">{hotel.name}</span>
         <span className="fpCity">{hotel.city}</span>
-        <span className="fpPrice">Starting from ${hotel.cheapestPrice}</span>
+        <span className="fpPrice">Starting from Kes {hotel.cheapestPrice}</span>
         { hotel.rating &&
         <div className="fpRating">
           <button>{hotel.rating}</button>
