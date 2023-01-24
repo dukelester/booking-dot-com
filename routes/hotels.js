@@ -8,11 +8,8 @@ import { verifyIsAdmin } from '../utils/verifytoken.js';
 
 const router = express.Router();
 
-// GET ALL
-router.get('/', getAllHotels);
-
 // GET Hotel by ID
-router.get('/:hotelId', getHotelById);
+router.get('/find/:hotelId', getHotelById);
 
 // CREATE
 router.post('/', verifyIsAdmin, createHotel);
@@ -22,8 +19,6 @@ router.put('/:hotelId', verifyIsAdmin, updateHotelById);
 
 // DELETE
 router.delete('/:hotelId', verifyIsAdmin, deleteHotel);
-// GET Hotel by ID
-router.get('/:hotelId', getHotelById);
 
 // GET ALL
 router.get('/', getAllHotels);
