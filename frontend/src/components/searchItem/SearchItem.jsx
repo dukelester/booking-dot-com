@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import "./searchItem.css";
 
 const SearchItem = ({ item }) => {
-  console.log(item, 'here is an item')
   return (
     <div className="searchItem">
       <img
@@ -36,7 +35,7 @@ const SearchItem = ({ item }) => {
           <span className="siPrice">Kes {item.cheapestPrice}</span>
           <span className="siTaxOp">Includes taxes and fees</span>
           </div>
-          <Link to={`/hotels/${item._id}`}>
+          <Link to=`/hotels/</div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>`>
           <button className="siCheckButton">See availability</button>
           </Link>
         </div>
