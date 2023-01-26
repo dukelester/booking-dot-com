@@ -11,3 +11,14 @@ Test Runner - a library or tool which picks up source code (tests) in a given di
 `Jest` - Jest is a JavaScript testing framework developed by Facebook. It works out of the box with minimal configuration and has in-built test runner, assertion library and mocking support.
 
 `Supertest` - A library for testing Node.js HTTP servers. It enables us to programmatically send HTTP requests such as GET, POST, PATCH, PUT, DELETE to HTTP servers and get results.
+
+### Install Jest and supertest
+
+Open your terminal and cd to the project root directory and run the command below:
+`npm install --save-dev jest supertest`
+
+## Testing the API Endpoints
+
+Now that we have got the test environment set up, it is time to start testing the API endpoints. Since our endpoint needs to make a request to the database, we need to set up a test database. The reason for setting up a test database is that we'll be dropping the database each time we run a test. Dropping the database each time the test is run ensures the integrity of the test. That is, if a test is about creating a post record in the database, we want to be sure that there was no post record in the database before the test was run, that way, we are sure of the result got from the test.
+
+Route ==> `Middleware => Controller => Service => Model` => MongoDb
