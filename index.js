@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
-import express from 'express';
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
@@ -9,8 +8,9 @@ import authRoute from './routes/auth.js';
 import hotelsRoute from './routes/hotels.js';
 import roomsRoute from './routes/rooms.js';
 import usersRoute from './routes/users.js';
+import createServer from './utils/server.js';
 
-const app = express();
+const app =createServer();
 dotenv.config();
 
 const connect = async () => {
@@ -31,7 +31,6 @@ mongoose.connection.on('connected', () => {
 });
 
 // middlewares
-app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/auth', authRoute);
