@@ -1,4 +1,7 @@
 /* Bordered form */
+.error {
+    color: orangered;
+  }
 
 .login {
     margin: auto;
@@ -24,7 +27,7 @@ form {
   }
   
   /* Set a style for all buttons */
-  button {
+  .lButton {
     background-color: #0071c2;
     color: white;
     padding: 14px 20px;
@@ -64,10 +67,13 @@ form {
     padding: 16px;
   }
   
+
+  
   /* The "Forgot password" text */
   span.psw {
     float: right;
     padding-top: 16px;
+    
   }
   
   /* Change styles for span and cancel button on extra small screens */
