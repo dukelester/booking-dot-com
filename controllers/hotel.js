@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import Hotel from '../models/Hotel.js';
+import Room from '../models/Room.js';
 
 // The hotel controllers
 export const createHotel = async (req, res, next) => {
@@ -80,6 +81,16 @@ export const countByType = async (req, res, next) => {
       { type: 'villa', count: villaCount },
       { type: 'cabin', count: cabinCount },
     ]);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getHotelRooms = async (req, res, next) => {
+  try {
+    const hotel = await Hotel.findById(req.params.hotelId);
+    const list = await Promise.all(hotel.rooms.map((room) => Room.findById(room)));
+    res.status(200).json(list);
   } catch (error) {
     next(error);
   }
