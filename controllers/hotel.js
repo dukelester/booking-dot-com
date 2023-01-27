@@ -19,7 +19,7 @@ export const getHotelById = async (req, res, next) => {
     const foundHotel = await Hotel.findById(hotelId);
     if (foundHotel) {
       res.status(200).json(foundHotel);
-    } else {
+    } else if (!foundHotel) {
       res.status(404).json({ message: ' Hotel with that Id not found!' });
     }
   } catch (error) {
