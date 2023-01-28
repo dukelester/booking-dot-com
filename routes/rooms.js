@@ -15,12 +15,12 @@ router.get('/', getAllRooms);
 router.get('/:roomId', findRoomById);
 
 // CREATE
-router.post('/:hotelId', verifyIsAdmin, createRoom);
+router.post('/:hotelId', createRoom);
 
 // UPDATE
-router.put('/:roomId', verifyIsAdmin, updateRoom);
+router.put('/:roomId', updateRoom);
 
 // DELETE
-router.delete('/:roomId/:hotelId', verifyIsAdmin, deleteRoom);
+router.delete('/:roomId/:hotelId', deleteRoom);
 
 export default router;

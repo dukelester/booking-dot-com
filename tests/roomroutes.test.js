@@ -38,6 +38,29 @@ describe('room', () => {
         expect(response.statusCode).toBe(404);
       });
     });
-   
   });
-})
+  describe('updating a room imformation', () => {
+    it('should return the updated room', async () => {
+      const roomId = '63cdb4d306c9ea8c1207b5b5';
+      const updatedRoom = await request(app).put(`/api/rooms/${roomId}/`)
+        .send({
+          "price": 5000,
+        });
+        expect(updatedRoom.statusCode).toBe(200);
+        expect(updatedRoom.body.price).toStrictEqual(5000);
+        expect(updatedRoom.body._id).toStrictEqual(roomId);
+    });
+  });
+  describe('updating a room imformation', () => {
+    it('should return an error if the room id is wrong', async () => {
+      const roomId = '63cdb4d306c9ea1207b5b5';
+      const updatedRoom = await request(app).put(`/api/rooms/${roomId}/`)
+        .send({
+          "price": 5000,
+        });
+        expect(updatedRoom.statusCode).toBe(500);
+        expect(updatedRoom.body).toStrictEqual({});
+    });
+  });
+  });
+

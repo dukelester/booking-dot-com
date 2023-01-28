@@ -31,7 +31,6 @@ describe('users', () => {
         const user = await request(app).get(`/api/users/${userId}`);
         expect(user.statusCode).toBe(200);
         expect(user.body._id).toBe(userId);
-        console.log(user.body._id)
     });
   });
 
