@@ -12,11 +12,16 @@ export const userRegistration = async (req, res, next) => {
     const {
       username, email, phone, password,
     } = req.body;
-    const newUser = new User({
-      username, email, phone, password: hashPassword(password),
-    });
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    if (username && email && phone && password) {
+      const newUser = new User({
+        username, email, phone, password: hashPassword(password),
+      });
+      const savedUser = await newUser.save();
+      res.status(201).json(savedUser);
+    } else {
+      res.status(400).json({ 'message': 'Bad information' })
+    }
+    
   } catch (error) {
     next(error);
   }
