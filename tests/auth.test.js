@@ -41,4 +41,21 @@ describe('user authentication', () => {
       expect(user.body.phone).toStrictEqual('phone');
     });
   });
+  describe('user login', () => {
+    it('should return error for a wrong username and password', async () => {
+        const loggedInUser = await request(app).post('/api/auth/login');
+        expect(loggedInUser.statusType).toBe(404);
+        expect(loggedInUser.body.message).toStrictEqual('User not found!')
+    });
+    it('should return success 200 for correct credentials', async () => {
+        const loggedInUser = await request(app).post('/api/auth/login')
+          .send({
+                "username": "lesterdu978",
+                "password": "duke2030"
+          });
+        expect(loggedInUser.statusType).toBe(200);
+        expect(user.body.username).toStrictEqual('lesterdu978');
+    });
+  });
+
 });
