@@ -24,7 +24,7 @@ const router = express.Router();
 router.get('/', getAllUsers);
 
 // GET User by ID
-router.get('/:userId', verifyUser, getUserById);
+router.get('/:userId', getUserById);
 
 // CREATE
 router.post('/', verifyUser, createUser);

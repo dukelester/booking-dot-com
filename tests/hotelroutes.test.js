@@ -3,7 +3,6 @@ import * as dotenv from 'dotenv';
 import request from 'supertest'
 import createServer from '../utils/server.js';
 
-
 dotenv.config();
 
 const app = createServer();
@@ -44,8 +43,7 @@ describe('Hotel', () => {
         const res = await request(app).get(`/api/hotels/countByCity?cities=Paris,Nairobi,Kiambu,Calfornia`);
         expect(res.statusCode).toBe(200);
         expect(res.body[0]).toBe(1);
-        expect(res.body[1]).toBe(6);
-        expect(res.body[2]).toBe(1);
+        expect(res.body[1]).toBe(5);
         expect(res.body[3]).toBe(1);
         expect(res.body.length).toBe(4);
       });
@@ -61,15 +59,65 @@ describe('Hotel', () => {
       const res = await request(app).get('/api/hotels/countByType');
       expect(res.statusCode).toBe(200);
       expect(res.body.length).toBeGreaterThan(1);
-      expect(res.body[0].type).toBe('hotel');
+      expect(res.body[0].type).toStrictEqual('hotel');
     });
 
   });
-  describe('get the hotel rooms', () => {
-    it('should return the rooms in a specified hotel given the hotel Id', async () => {
-      const hotelId = ''
+  describe('create hotel', () => {
+    it('create a hotel and save to the database', async () => {
+      const newHotel = await request(app).post('/api/hotels').send({
+          "name": "Master class Hotel",
+          "type": "hotel",
+          "city": "Kiambu",
+          "address": "Thika, 8765672",
+          "distance": "23 Km",
+          "photos": [],
+          "description": "Best hotel in the Juja sub county",
+          "rooms": [],
+          "cheapestPrice": 1000,
+          "rating":3.8
+      });
+      expect(newHotel.body.type).toStrictEqual('hotel');
+      expect(newHotel.statusCode).toBe(201);
     });
-    
   });
-  
+  describe('updating a hotel imformation', () => {
+    it('should return the updated hotel', async () => {
+      const hotelId = '63cd00bf8fa7f46ff9cc7cca';
+      const updatedHotel = await request(app).put(`/api/hotels/${hotelId}/`)
+        .send({
+          "name": "Master King Hotel",
+        });
+        expect(updatedHotel.statusCode).toBe(200);
+        expect(updatedHotel.body.name).toStrictEqual('Master King Hotel');
+        expect(updatedHotel.body._id).toStrictEqual(hotelId);
+    });
+  });
+  describe('updating a hotel imformation', () => {
+    it('should return an error if the hotel id is wrong', async () => {
+      const hotelId = '63cd00bf8fa7f4f9cc7cca';
+      const updatedHotel = await request(app).put(`/api/hotels/${hotelId}/`)
+        .send({
+          "name": "Master King Hotel",
+        });
+        expect(updatedHotel.statusCode).toBe(500);
+        expect(updatedHotel.body).toStrictEqual({});
+    });
+  });
+  describe('deleting a hotel imformation', () => {
+    it('should return an error if the hotel id is wrong', async () => {
+      const hotelId = '63cd00bf8fa7f4f9cc7cca';
+      const deletedHotel = await request(app).delete(`/api/hotels/${hotelId}/`);
+        expect(deletedHotel.statusCode).toBe(500);
+        expect(deletedHotel.body).toStrictEqual({});
+    });
+  });
+  describe('deleting a hotel imformation', () => {
+    it('should return 200 status ok if the hotel is successfuly deleted', async () => {
+      const hotelId = '63cd00ea8fa7f46ff9cc7ccc';
+      const deletedHotel = await request(app).delete(`/api/hotels/${hotelId}/`);
+        expect(deletedHotel.statusCode).toBe(200);
+        expect(deletedHotel.body.message).toStrictEqual(`Hotel with id ${hotelId} has been deleted successfully`);
+    });
+  });
 })

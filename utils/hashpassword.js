@@ -9,3 +9,4 @@ export const hashPassword = (password) => {
 
 export const isPasswordCorrect = (password, userPass) => bcrypt.compareSync(password, userPass);
 // export default hashPassword;
+console.log(hashPassword('james2030'))

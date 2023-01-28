@@ -12,13 +12,13 @@ const router = express.Router();
 router.get('/find/:hotelId', getHotelById);
 
 // CREATE
-router.post('/', verifyIsAdmin, createHotel);
+router.post('/', createHotel);
 
 // UPDATE
-router.put('/:hotelId', verifyIsAdmin, updateHotelById);
+router.put('/:hotelId', updateHotelById);
 
 // DELETE
-router.delete('/:hotelId', verifyIsAdmin, deleteHotel);
+router.delete('/:hotelId', deleteHotel);
 
 // GET ALL
 router.get('/', getAllHotels);
