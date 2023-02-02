@@ -29,7 +29,7 @@ const User = new Schema(
     },
     status: {
       type: String,
-      default: inactive
+      default: 'inactive'
     },
     emailVerified: {
       type: Boolean,
