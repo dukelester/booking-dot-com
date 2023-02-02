@@ -13,7 +13,7 @@
     "verbose": true
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start:dev": "nodemon index.js",
     "test": "jest"
   },
   "keywords": [],

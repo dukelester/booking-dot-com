@@ -27,6 +27,14 @@ const User = new Schema(
       type: Boolean,
       default: false,
     },
+    status: {
+      type: String,
+      default: inactive
+    },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    }
   },
   { timestamps: true },
 
