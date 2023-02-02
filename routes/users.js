@@ -33,6 +33,6 @@ router.post('/', verifyUser, createUser);
 router.put('/:userId', verifyUser, updateUserById);
 
 // DELETE
-router.delete('/:userId', verifyUser, deleteUser);
+router.delete('/:userId', deleteUser);
 
 export default router;
