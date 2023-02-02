@@ -19,9 +19,8 @@ export const userRegistration = async (req, res, next) => {
       const savedUser = await newUser.save();
       res.status(201).json(savedUser);
     } else {
-      res.status(400).json({ 'message': 'Bad information' })
+      res.status(400).json({ message: 'Bad information' });
     }
-    
   } catch (error) {
     next(error);
   }
@@ -31,6 +30,7 @@ export const userLogin = async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const foundUser = await User.findOne({ username });
+    if (foundUser.status !== 'Active') return next(createError(401, 'Pending Account. Please Verify Your Email!'));
     if (!foundUser) return next(createError(404, 'User not found!'));
     if (!isPasswordCorrect(password, foundUser.password)) return next(createError(400, 'Wrong password or username'));
     const { password: userpassword, isAdmin, ...otherDetails } = foundUser._doc;
