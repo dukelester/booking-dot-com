@@ -29,12 +29,17 @@ const User = new Schema(
     },
     status: {
       type: String,
-      default: 'inactive'
+      enum: ['Pending', 'Active'],
+      default: 'Pending',
     },
     emailVerified: {
       type: Boolean,
       default: false,
-    }
+    },
+    confirmationCode: {
+      type: String,
+      unique: true,
+    },
   },
   { timestamps: true },
 
